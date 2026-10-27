@@ -1,0 +1,11 @@
+#!/bin/bash
+# Permanent VMware clipboard keeper
+while true; do
+    # Check if the vmware user service is running
+    if ! pgrep -f "vmware-user" > /dev/null; then
+        # If it's dead, launch it back up silently
+        vmware-user-suid-wrapper >/dev/null 2>&1 &
+    fi
+    # Wait 10 seconds before checking again
+    sleep 10
+done
